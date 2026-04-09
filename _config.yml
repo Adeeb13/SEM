@@ -1,82 +1,10 @@
-/* ══  ANIMATIONS & SCROLL EFFECTS  ══════════════════════════════ */
+# Jekyll Configuration
 
-// ── Counter animation
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const duration = 1800;
-  const start = performance.now();
-  function update(now) {
-    const t = Math.min((now - start) / duration, 1);
-    const ease = 1 - Math.pow(1 - t, 3);
-    el.textContent = Math.floor(ease * target);
-    if (t < 1) requestAnimationFrame(update);
-    else el.textContent = target;
-  }
-  requestAnimationFrame(update);
-}
+# Site settings
+url: "https://your-site-url.com"
+title: "Your Site Title"
+description: "A brief description of your site"
 
-// ── Intersection Observer for animate-in elements
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      // Animate counters
-      entry.target.querySelectorAll('[data-target]').forEach(el => animateCounter(el));
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.animate-in, .hero-stats, .contrib-card, .pillar-card, .paradox-card').forEach(el => {
-  observer.observe(el);
-});
-
-// ── Counter trigger on hero visible
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) {
-  const heroObs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      document.querySelectorAll('.stat-num[data-target]').forEach(el => animateCounter(el));
-      heroObs.disconnect();
-    }
-  }, { threshold: 0.5 });
-  heroObs.observe(heroStats);
-}
-
-// ── Navbar scroll behavior
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 80) {
-    navbar && navbar.classList.add('scrolled');
-  } else {
-    navbar && navbar.classList.remove('scrolled');
-  }
-}, { passive: true });
-
-// ── Hamburger menu
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.querySelector('.nav-links');
-if (hamburger && navLinks) {
-  hamburger.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    navLinks.style.flexDirection = 'column';
-    navLinks.style.position = 'absolute';
-    navLinks.style.top = '100%';
-    navLinks.style.left = '0';
-    navLinks.style.right = '0';
-    navLinks.style.background = 'rgba(2,6,23,0.98)';
-    navLinks.style.padding = '1rem 2rem';
-  });
-}
-
-// ── Stagger animation for cards
-document.querySelectorAll('.contributions-grid .contrib-card').forEach((el, i) => {
-  el.style.transitionDelay = `${i * 0.1}s`;
-  el.classList.add('animate-in');
-  observer.observe(el);
-});
-document.querySelectorAll('.pillars-grid .pillar-card').forEach((el, i) => {
-  el.style.transitionDelay = `${i * 0.15}s`;
-  el.classList.add('animate-in');
-  observer.observe(el);
-});
+# Build settings
+markdown: kramdown
+permalink: pretty
