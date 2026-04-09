@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authors | Beyond Frozen Intelligence</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    body { padding-top: 70px; }
+    .about-hero {
+      padding: 5rem 0 3rem;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(37,99,235,0.12) 0%, transparent 60%);
+    }
+    .about-hero h1 { margin-bottom: 0.5rem; }
+    .about-hero p { max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+    .authors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+    .author-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(37,99,235,0.2);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .author-card:hover { transform: translateY(-6px); border-color: rgba(37,99,235,0.5); box-shadow: 0 20px 60px rgba(37,99,235,0.2); }
+    .author-card.main { border-color: rgba(37,99,235,0.5); background: rgba(37,99,235,0.08); }
+    .author-avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563EB, #0D9488);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; font-weight: 900; color: white;
+      margin: 0 auto 1.5rem;
+      border: 3px solid rgba(37,99,235,0.4);
+    }
+    .author-card.main .author-avatar { width: 110px; height: 110px; font-size: 3rem; border-color: var(--blue); box-shadow: 0 0 30px rgba(37,99,235,0.4); }
+    .author-role { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-glow); margin-bottom: 0.5rem; }
+    .author-name { font-size: 1.3rem; font-weight: 800; color: white; margin-bottom: 0.8rem; }
+    .author-card.main .author-name { font-size: 1.5rem; }
+    .author-desc { font-size: 0.88rem; color: var(--grey); line-height: 1.7; }
+
+    .paper-info {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+    .paper-card {
+      background: rgba(37,99,235,0.07);
+      border: 1px solid rgba(37,99,235,0.3);
+      border-radius: 20px;
+      padding: 2.5rem;
+    }
+    .paper-card h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .paper-card .paper-subtitle { color: var(--blue-glow); font-style: italic; margin-bottom: 1.5rem; }
+    .paper-meta { display: flex; gap: 2rem; flex-wrap: wrap; margin: 1.5rem 0; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .meta-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--grey); }
+    .meta-value { font-weight: 700; color: white; }
+    .paper-abstract {
+      padding: 1.2rem;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      border-left: 3px solid var(--blue);
+      margin-top: 1rem;
+    }
+
+    .contrib-section {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 2rem 4rem;
+    }
+    .contrib-section h2 { margin-bottom: 1.5rem; }
+    .contrib-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .contrib-list li {
+      padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(37,99,235,0.15);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      display: flex; gap: 0.8rem; align-items: flex-start;
+    }
+    .contrib-list li::before {
+      content: attr(data-n);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--blue-glow);
+      font-weight: 700;
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+    }
+    @media (max-width: 768px) {
+      .authors-grid { grid-template-columns: 1fr; }
+      .paper-meta { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="nav-logo"><span class="logo-icon">⟳</span><span class="logo-text">SEM</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="machine3d.html">3D Machine</a></li>
+      <li><a href="simulation.html">Live Simulation</a></li>
+      <li><a href="theory.html">Theory</a></li>
+      <li><a href="paper.html">Paper</a></li>
+      <li><a href="equations.html">Equations</a></li>
+      <li><a href="about.html" class="active">Authors</a></li>
+    </ul>
+    <button class="nav-cta" onclick="location.href='machine3d.html'">3D Viewer →</button>
+  </nav>
+
+  <section class="about-hero">
+    <div class="container">
+      <div class="section-tag">Research Team</div>
+      <h1>Beyond Frozen Intelligence</h1>
+      <p>Adaptive Efficiency and the Self-Evolving Machine — AI & Physics Research</p>
+    </div>
+  </section>
+
+  <div class="authors-grid">
+    <!-- Main author -->
+    <div class="author-card main">
+      <div class="author-avatar">K</div>
+      <div class="author-role">Lead Author</div>
+      <div class="author-name">Kazi Mahir Adeeb</div>
+      <div class="author-desc">Primary architect of the Adaptive Efficiency framework, Capability Function formalism, and the Adaptive Efficiency Growth Theorem. Led the stochastic simulation design, prototype implementation, and the physical grounding in non-equilibrium thermodynamics.</div>
+    </div>
+    <div class="author-card">
+      <div class="author-avatar">S</div>
+      <div class="author-role">Co-Author</div>
+      <div class="author-name">S M Shadman Khan</div>
+      <div class="author-desc">Co-developer of the theoretical framework and system architecture. Contributed to the DGM cognitive core design, the safety monitor alignment framework, and the related work analysis positioning the SEM against prior art.</div>
+    </div>
+    <div class="author-card">
+      <div class="author-avatar">A</div>
+      <div class="author-role">Co-Author</div>
+      <div class="author-name">Abuhena Shuvro</div>
+      <div class="author-desc">Contributed to the physical grounding sections, Landauer's principle analysis, Kolmogorov complexity failure regime formalization, and governance framework design for ethical deployment of SEM-class systems.</div>
+    </div>
+  </div>
+
+  <div class="paper-info">
+    <div class="paper-card">
+      <h2>Beyond Frozen Intelligence</h2>
+      <div class="paper-subtitle">Adaptive Efficiency and the Self-Evolving Machine: A Unified Physical-Computational Framework for Cognitive Self-Optimization</div>
+      <div class="paper-meta">
+        <div class="meta-item"><div class="meta-label">Published</div><div class="meta-value">2025</div></div>
+        <div class="meta-item"><div class="meta-label">Domain</div><div class="meta-value">AI & Physics</div></div>
+        <div class="meta-item"><div class="meta-label">Prototype Improvement</div><div class="meta-value">+105%</div></div>
+        <div class="meta-item"><div class="meta-label">Monte Carlo Runs</div><div class="meta-value">1,000</div></div>
+        <div class="meta-item"><div class="meta-label">Theorem</div><div class="meta-value">3 Failure Regimes</div></div>
+      </div>
+      <div class="paper-abstract">
+        <strong>Abstract:</strong> We introduce Adaptive Efficiency (AE), a formally grounded metric that quantifies the rate of structural self-improvement of open cognitive systems. Grounded in Prigogine's dissipative structures, Landauer's principle, and Kolmogorov complexity theory, AE is distinguished from thermodynamic efficiency (bounded by Carnot) and standard AI performance metrics (presupposing static task distributions). The Self-Evolving Machine (SEM) is its architectural instantiation. Three independent layers of evidence support the framework: a mathematical theorem with falsifiable predictions and three explicit failure regimes; a stochastic simulation with 1,000 Monte Carlo runs demonstrating statistical dominance over static and RL baselines; and a prototype self-modifying coding agent achieving 105% relative performance improvement across 50 iterations.
+      </div>
+    </div>
+  </div>
+
+  <div class="contrib-section">
+    <h2>Six Verifiable Contributions</h2>
+    <ul class="contrib-list">
+      <li data-n="01">Formal definition of Adaptive Efficiency (AE) as the time-derivative of a structured Capability Function C(t), incorporating stochastic noise, resource saturation, and failure probability — explicitly distinguished from all existing metrics.</li>
+      <li data-n="02">Physical grounding of AE in non-equilibrium thermodynamics (Prigogine), Landauer's principle, and Kolmogorov complexity theory — establishing that self-improving AI systems are open physical systems governed by the same principles as dissipative structures in nature.</li>
+      <li data-n="03">The Adaptive Efficiency Growth Theorem: necessary and sufficient conditions for sustained positive AE, with explicit derivation of FR-1 (Noise Dominance), FR-2 (Resource Saturation), and FR-3 (Algorithmic Incompressibility) — each corresponding to a known physical phase transition.</li>
+      <li data-n="04">Stochastic simulation with 1,000 Monte Carlo runs, Gaussian noise injection, failure probability modeling, resource saturation ceiling, and three-way statistical comparison (p &lt; 0.001 after Bonferroni correction).</li>
+      <li data-n="05">Minimal working prototype: self-modifying coding agent achieving 105% relative performance improvement across 50 iterations with 5 independent random seeds — empirical proof of concept.</li>
+      <li data-n="06">Complete system architecture with pseudocode, sensitivity analysis, ablation study, and alignment framework embedding safety as thermodynamic constraints inside the evolution loop.</li>
+    </ul>
+  </div>
+
+  <script src="js/animations.js"></script>
+</body>
+</html>

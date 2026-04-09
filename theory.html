@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEM Theory | Beyond Frozen Intelligence</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/theory.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <nav id="navbar">
+    <div class="nav-logo"><span class="logo-icon">⟳</span><span class="logo-text">SEM</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="machine3d.html">3D Machine</a></li>
+      <li><a href="simulation.html">Live Simulation</a></li>
+      <li><a href="theory.html" class="active">Theory</a></li>
+      <li><a href="paper.html">Paper</a></li>
+      <li><a href="equations.html">Equations</a></li>
+      <li><a href="about.html">Authors</a></li>
+    </ul>
+    <button class="nav-cta" onclick="location.href='machine3d.html'">3D Viewer →</button>
+  </nav>
+
+  <div class="theory-layout">
+    <!-- SIDEBAR TOC -->
+    <aside class="theory-toc">
+      <div class="toc-title">Contents</div>
+      <nav id="toc-nav">
+        <a href="#ae-definition" class="toc-link">1. Adaptive Efficiency</a>
+        <a href="#capability-fn" class="toc-link">2. Capability Function</a>
+        <a href="#stochastic-model" class="toc-link">3. Stochastic Model</a>
+        <a href="#theorem" class="toc-link">4. The Theorem</a>
+        <a href="#fr1" class="toc-link indent">FR-1: Noise Dominance</a>
+        <a href="#fr2" class="toc-link indent">FR-2: Resource Saturation</a>
+        <a href="#fr3" class="toc-link indent">FR-3: Algorithmic Limit</a>
+        <a href="#physics" class="toc-link">5. Physical Grounding</a>
+        <a href="#landauer" class="toc-link indent">Landauer's Principle</a>
+        <a href="#prigogine" class="toc-link indent">Prigogine Structures</a>
+        <a href="#kolmogorov" class="toc-link indent">Kolmogorov Complexity</a>
+        <a href="#architecture" class="toc-link">6. Architecture</a>
+      </nav>
+      <div style="margin-top:2rem;">
+        <div class="toc-title">Audience</div>
+        <div class="audience-tabs">
+          <button class="aud-btn active" onclick="setAudience('expert')">Expert</button>
+          <button class="aud-btn" onclick="setAudience('student')">Student</button>
+          <button class="aud-btn" onclick="setAudience('teen')">Teen</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="theory-main">
+      <!-- ── AE DEFINITION ── -->
+      <section id="ae-definition" class="theory-section">
+        <div class="section-tag">Definition 1</div>
+        <h2>Adaptive Efficiency (AE)</h2>
+
+        <div class="audience-layer expert active">
+          <p>Adaptive Efficiency is defined as the instantaneous rate of change of the Capability Function C(t) with respect to time. Unlike thermodynamic efficiency (bounded by Carnot) or standard AI performance metrics (presupposing a fixed hypothesis class H), AE is defined over systems where H itself evolves.</p>
+        </div>
+        <div class="audience-layer student">
+          <p>Adaptive Efficiency measures <em>how fast a system is improving itself</em> — not how well it does on a fixed test, but how rapidly it is growing its ability to solve harder problems over time. Think of it like measuring how fast you're getting smarter, not just how smart you are right now.</p>
+        </div>
+        <div class="audience-layer teen">
+          <p>Imagine a video game character that doesn't just level up in strength — it actually rewrites its own abilities. Adaptive Efficiency measures how fast it's rewriting. A character with high AE is basically becoming a different, better game every few minutes.</p>
+        </div>
+
+        <div class="eq-block">
+          <div class="eq-label">Definition 1.1 — Adaptive Efficiency</div>
+          <div class="eq-main">AE(t) = dC(t) / dt</div>
+          <div class="eq-note">Where C(t) is the Capability Function at time t</div>
+        </div>
+        <div class="eq-compare-grid">
+          <div class="eq-compare-item red">
+            <div class="eqi-title">Thermodynamic η</div>
+            <div class="eqi-eq">η ≤ 1 − T_cold/T_hot</div>
+            <div class="eqi-note">Bounded by Carnot limit. Fixed architecture.</div>
+          </div>
+          <div class="eq-compare-item yellow">
+            <div class="eqi-title">Standard AI Metrics</div>
+            <div class="eqi-eq">Acc, Loss, Regret</div>
+            <div class="eqi-note">Presuppose static task distribution.</div>
+          </div>
+          <div class="eq-compare-item green">
+            <div class="eqi-title">Adaptive Efficiency</div>
+            <div class="eqi-eq">AE(t) = dC(t)/dt</div>
+            <div class="eqi-note">Measures structural self-improvement rate. Open system.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CAPABILITY FUNCTION ── -->
+      <section id="capability-fn" class="theory-section">
+        <div class="section-tag">Definition 2</div>
+        <h2>The Capability Function C(t)</h2>
+        <div class="audience-layer expert active">
+          <p>C(t) is a weighted composite of cognitive and physical capability components, measured against a <em>dynamic, evolving benchmark suite B(t)</em>. The dynamic benchmark is critical: a system that memorizes a fixed test achieves high apparent performance without positive AE in the meaningful sense.</p>
+        </div>
+        <div class="audience-layer student">
+          <p>The Capability Function is like a combined score that measures two things: how well the agent thinks (cognitive tasks like coding and reasoning) and how well it acts in the physical world. These are blended together with weights α and β that add up to 1.</p>
+        </div>
+        <div class="audience-layer teen">
+          <p>Think of C(t) as your total game score — part brain score, part physical score. As you get better, the game automatically makes harder levels (dynamic benchmark) so you can't just cheat by memorizing the old levels.</p>
+        </div>
+        <div class="eq-block">
+          <div class="eq-label">Definition 2.1 — Capability Function</div>
+          <div class="eq-main">C(t) = α · C_cog(t) + β · C_phys(t)</div>
+          <div class="eq-note">α + β = 1, α = 0.7, β = 0.3 (paper baseline)</div>
+        </div>
+        <div class="variable-table">
+          <div class="var-row header"><span>Symbol</span><span>Meaning</span><span>Value</span></div>
+          <div class="var-row"><span>C_cog(t)</span><span>Cognitive performance (coding, reasoning, science)</span><span>dynamic</span></div>
+          <div class="var-row"><span>C_phys(t)</span><span>Physical / embodied performance</span><span>dynamic</span></div>
+          <div class="var-row"><span>α</span><span>Cognitive weight</span><span>0.70</span></div>
+          <div class="var-row"><span>β</span><span>Physical weight</span><span>0.30</span></div>
+          <div class="var-row"><span>B(t)</span><span>Dynamic benchmark suite (advances with C)</span><span>evolving</span></div>
+        </div>
+      </section>
+
+      <!-- ── STOCHASTIC MODEL ── -->
+      <section id="stochastic-model" class="theory-section">
+        <div class="section-tag">Model</div>
+        <h2>Stochastic Capability Dynamics</h2>
+        <div class="audience-layer expert active">
+          <p>The physically realistic model extends the deterministic exponential with four factors: stochastic noise ξ(t), a logistic resource ceiling C_max, a failure probability p_fail, and the Kolmogorov incompressibility correction δ_K(t). This replaces the naive exponential with a physically grounded growth law analogous to the Verhulst equation.</p>
+        </div>
+        <div class="audience-layer student">
+          <p>The real simulation is messier than a simple growth curve. Sometimes modifications fail. Sometimes there's random noise. There's a ceiling on how much the machine can grow (limited computer resources). And as the machine gets more complex, improvements get harder to find. All four effects are baked into one equation.</p>
+        </div>
+        <div class="audience-layer teen">
+          <p>Imagine leveling up, but sometimes you make a mistake and lose a little XP (p_fail), sometimes random stuff happens (noise σ), eventually you hit a max level (C_max), and later in the game each level takes longer to reach (δ_K). That's this equation.</p>
+        </div>
+        <div class="eq-block large">
+          <div class="eq-label">Stochastic Update Equation</div>
+          <div class="eq-main small">C(t+1) = C(t) + F(t)·[λ_eff·C(t)·(1 − C(t)/C_max) − δ_K(t)] + σ·C(t)·ξ(t)</div>
+          <div class="eq-note">ξ(t) ~ N(0,1) · F(t) ~ Bernoulli(1 − p_fail) · λ_eff = α·λ_cog + β·λ_phys</div>
+        </div>
+        <div class="term-breakdown">
+          <div class="term-item">
+            <div class="term-color blue"></div>
+            <div><strong>λ_eff·C(t)·(1−C/C_max)</strong> — logistic growth term (bounded by resources)</div>
+          </div>
+          <div class="term-item">
+            <div class="term-color purple"></div>
+            <div><strong>−δ_K(t)</strong> — Kolmogorov incompressibility correction (grows with complexity)</div>
+          </div>
+          <div class="term-item">
+            <div class="term-color yellow"></div>
+            <div><strong>F(t)</strong> — Bernoulli failure variable (zero on failed modifications)</div>
+          </div>
+          <div class="term-item">
+            <div class="term-color grey"></div>
+            <div><strong>σ·C(t)·ξ(t)</strong> — multiplicative noise (proportional to current capability)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── THEOREM ── -->
+      <section id="theorem" class="theory-section">
+        <div class="section-tag">Theorem</div>
+        <h2>The Adaptive Efficiency Growth Theorem</h2>
+        <div class="theorem-box">
+          <div class="theorem-title">THEOREM (Adaptive Efficiency Growth)</div>
+          <p style="color:var(--grey-light);margin-bottom:1rem;">Let a Self-Evolving Machine operate under the stochastic model above. Define μ_fail as the expected fractional capability loss per failure event.</p>
+          <div class="theorem-part necessary">
+            <div class="tp-label">NECESSARY CONDITION for E[AE(t)] &gt; 0</div>
+            <div class="tp-eq">λ_eff · C(t) · (1 − C(t)/C_max) &gt; δ_K(t) + p_fail · μ_fail · C(t)</div>
+          </div>
+          <div class="theorem-part sufficient">
+            <div class="tp-label">SUFFICIENT CONDITION for sustained E[AE(t)] &gt; 0 over [0, T]</div>
+            <div class="tp-eq">λ_eff &gt; (σ² / 2) + p_fail · μ_fail + δ_K_max / C_0</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── FAILURE REGIMES ── -->
+      <section id="fr1" class="theory-section">
+        <div class="section-tag">Failure Regime FR-1</div>
+        <h2>Noise Dominance</h2>
+        <div class="regime-card red">
+          <div class="regime-condition">σ²/2 &gt; λ_eff − p_fail·μ_fail</div>
+          <div class="audience-layer expert active">
+            <p>Analogous to the order-disorder phase transition in spin glasses. Below a critical signal-to-noise ratio, no ordered (improving) state is stable. The stochastic fluctuations overwhelm the systematic improvement signal — AE fluctuates around zero with no sustained trend.</p>
+          </div>
+          <div class="audience-layer student">
+            <p>When there's too much randomness in the evaluation signal, the machine can't tell if a modification is actually good or just got lucky. It's like trying to tune a radio station in a thunderstorm — the signal gets drowned by noise.</p>
+          </div>
+          <div class="audience-layer teen">
+            <p>Too much random stuff happening. The machine makes a change, but it can't tell if it helped because everything is too noisy. Like trying to judge if a study session helped when you also had 3 coffees, slept 2 hours, and the exam was weirdly hard.</p>
+          </div>
+          <div class="regime-physics">Physical analog: Order-disorder phase transition in spin glasses</div>
+        </div>
+      </section>
+
+      <section id="fr2" class="theory-section">
+        <div class="section-tag">Failure Regime FR-2</div>
+        <h2>Resource Saturation</h2>
+        <div class="regime-card yellow">
+          <div class="regime-condition">C(t) → C_max ⟹ AE(t) → −δ_K(t) &lt; 0</div>
+          <div class="audience-layer expert active">
+            <p>The logistic growth ceiling: as C(t) approaches C_max, the improvement gradient shrinks to zero while the incompressibility correction δ_K(t) continues to grow, driving AE negative. Fundamentally a resource economics problem — increasing C_max delays but does not eliminate the regime.</p>
+          </div>
+          <div class="audience-layer student">
+            <p>The machine eventually hits the limits of its available computing power. There's only so much RAM, only so many GPU cycles. As it approaches that ceiling, improvements get smaller and smaller — like trying to go faster in a car that's already at its top speed.</p>
+          </div>
+          <div class="audience-layer teen">
+            <p>The machine maxes out its computing power. Like a phone at 100% storage — you can't install new apps no matter how good they are. The fix isn't to try harder; it's to get a bigger phone (more compute) or find smarter ways to organize what you have.</p>
+          </div>
+          <div class="regime-physics">Physical analog: Carrying capacity limit in ecological thermodynamics (logistic equation)</div>
+        </div>
+      </section>
+
+      <section id="fr3" class="theory-section">
+        <div class="section-tag">Failure Regime FR-3</div>
+        <h2>Algorithmic Incompressibility</h2>
+        <div class="regime-card purple">
+          <div class="regime-condition">δ_K(t) ≥ λ_eff · C(t) · (1 − C(t)/C_max)</div>
+          <div class="audience-layer expert active">
+            <p>The deepest failure mode, grounded in Chaitin-Kolmogorov theory. When K(A_t) — the Kolmogorov complexity of the agent description — increases faster than the modification strategy can discover improvements, AE falls. No amount of additional compute escapes this regime; what's required is a qualitative innovation in the modification strategy — second-order self-improvement.</p>
+          </div>
+          <div class="audience-layer student">
+            <p>As the machine gets smarter, describing each improvement requires more and more information. Eventually the cost of specifying a better version of itself outpaces its ability to find one. It's like writing a program to improve a program — but the improvement instructions are longer than the program itself.</p>
+          </div>
+          <div class="audience-layer teen">
+            <p>The machine has become so complex that finding the next upgrade is nearly impossible — like trying to explain an advanced calculus concept in only 10 words. The information needed to describe the improvement is bigger than the improvement itself. This is the deepest, most fundamental wall.</p>
+          </div>
+          <div class="regime-physics">Physical analog: Chaitin incompressibility limit in algorithmic information theory</div>
+        </div>
+      </section>
+
+      <!-- Physics sections abbreviated for length -->
+      <section id="physics" class="theory-section">
+        <div class="section-tag">Physical Foundation</div>
+        <h2>Why This Is a Physics Problem</h2>
+        <p>The connection between AI self-improvement and physics is not metaphorical. Three independent bodies of physics jointly constrain and explain SEM behavior.</p>
+      </section>
+      <section id="landauer" class="theory-section">
+        <div class="section-tag">Landauer 1961</div>
+        <h2>Landauer's Principle</h2>
+        <div class="eq-block">
+          <div class="eq-label">Minimum erasure energy</div>
+          <div class="eq-main">E_erase ≥ k_B · T · ln(2) ≈ 2.87 × 10⁻²¹ J</div>
+          <div class="eq-note">At T = 300K (room temperature)</div>
+        </div>
+        <p>Every self-modification cycle erases information (failed modification candidates). Landauer's principle sets a physical floor on the energy cost of every such cycle. The DGM archive strategy — retaining rather than erasing failed modifications — is thermodynamically optimal: it avoids the erasure cost while preserving the information value of suboptimal variants.</p>
+      </section>
+      <section id="prigogine" class="theory-section">
+        <div class="section-tag">Prigogine 1977 · Nobel Prize</div>
+        <h2>Dissipative Structures</h2>
+        <p>Prigogine's theory identifies open physical systems that maintain and increase internal organization by consuming free energy and exporting entropy. The SEM is a dissipative structure in this precise technical sense: it imports computational energy and exports entropy through discarded modifications. Importantly, removing the energy supply causes collapse to thermodynamic equilibrium — making <strong>resource constraints thermodynamic stability conditions</strong>, not merely engineering considerations.</p>
+      </section>
+      <section id="kolmogorov" class="theory-section">
+        <div class="section-tag">Kolmogorov Complexity</div>
+        <h2>The Incompressibility Ceiling</h2>
+        <div class="eq-block">
+          <div class="eq-label">Kolmogorov complexity bound</div>
+          <div class="eq-main">K(A_t) = length of shortest program producing A_t</div>
+          <div class="eq-note">No program produces A_t with fewer bits — this bound is absolute</div>
+        </div>
+        <p>As the agent becomes more capable, K(A_t) increases monotonically. Self-modifications that further increase complexity require progressively longer programs to specify — making them increasingly hard to discover through search. Sustained positive AE therefore requires not just first-order self-modification but second-order improvement of the modification strategy itself.</p>
+      </section>
+      <section id="architecture" class="theory-section">
+        <div class="section-tag">System Design</div>
+        <h2>Architecture Overview</h2>
+        <p>The SEM consists of six functional layers forming a closed loop. Each layer's function can be derived directly from the theorem: the AE evaluator implements the necessary condition check; the safety monitor enforces the sufficient condition; the archive implements Landauer-optimal retention.</p>
+        <a href="machine3d.html" class="btn-primary" style="margin-top:1rem;display:inline-flex;">Explore in 3D →</a>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/animations.js"></script>
+  <script>
+    // Audience switcher
+    function setAudience(level) {
+      document.querySelectorAll('.audience-layer').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll(`.audience-layer.${level}`).forEach(el => el.classList.add('active'));
+      document.querySelectorAll('.aud-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+    window.setAudience = setAudience;
+
+    // TOC scroll highlight
+    const sections = document.querySelectorAll('.theory-section');
+    const tocLinks = document.querySelectorAll('.toc-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+      tocLinks.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#'+current); });
+    }, {passive:true});
+  </script>
+</body>
+</html>

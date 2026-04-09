@@ -1,0 +1,115 @@
+/* ══  HERO PARTICLES — Neural network / particle field  ══════════ */
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let W, H, particles, connections;
+  const N = 80;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function randomParticle() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 2 + 1,
+      pulse: Math.random() * Math.PI * 2,
+      pulseSpeed: 0.02 + Math.random() * 0.03,
+      type: Math.random() < 0.15 ? 'node' : 'particle',
+      color: Math.random() < 0.5 ? '#3B82F6' : '#2DD4BF',
+    };
+  }
+
+  function init() {
+    resize();
+    particles = Array.from({ length: N }, randomParticle);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 160) {
+          const alpha = (1 - dist / 160) * 0.25;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(59, 130, 246, ${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw particles
+    particles.forEach(p => {
+      p.pulse += p.pulseSpeed;
+      const scale = 1 + 0.3 * Math.sin(p.pulse);
+
+      if (p.type === 'node') {
+        // Glowing node
+        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 12 * scale);
+        gradient.addColorStop(0, p.color);
+        gradient.addColorStop(1, 'transparent');
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 12 * scale, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * scale, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(96, 165, 250, 0.5)`;
+        ctx.fill();
+      }
+
+      // Move
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+    });
+
+    // Floating equations
+    drawFloatingMath();
+    requestAnimationFrame(draw);
+  }
+
+  // Floating math symbols
+  const mathSymbols = [
+    { text: 'AE(t) = dC(t)/dt', x: 0.1, y: 0.2, speed: 0.0003, alpha: 0.12 },
+    { text: 'λ_eff > σ²/2 + p_fail·μ_fail', x: 0.75, y: 0.15, speed: 0.0004, alpha: 0.1 },
+    { text: 'E ≥ k_B·T·ln(2)', x: 0.85, y: 0.65, speed: 0.0002, alpha: 0.11 },
+    { text: 'C(t+1) = C(t) + F(t)·[λ·C·(1-C/Cmax)]', x: 0.05, y: 0.8, speed: 0.00025, alpha: 0.09 },
+    { text: 'K(A_t) → incompressible', x: 0.6, y: 0.85, speed: 0.00035, alpha: 0.1 },
+  ];
+  let tick = 0;
+
+  function drawFloatingMath() {
+    tick++;
+    mathSymbols.forEach(sym => {
+      const y = (sym.y * H) + Math.sin(tick * sym.speed * 1000) * 15;
+      ctx.font = `400 13px 'JetBrains Mono', monospace`;
+      ctx.fillStyle = `rgba(96, 165, 250, ${sym.alpha})`;
+      ctx.fillText(sym.text, sym.x * W, y);
+    });
+  }
+
+  window.addEventListener('resize', () => { resize(); });
+  init();
+  draw();
+})();

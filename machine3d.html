@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Equations Reference | SEM</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    body { padding-top: 70px; }
+    .eq-page { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+    .eq-page h1 { margin-bottom: 0.5rem; }
+    .eq-page > p { margin-bottom: 3rem; }
+    .eq-section { margin-bottom: 3rem; }
+    .eq-section-title {
+      font-size: 1.1rem; font-weight: 700; color: white;
+      padding-bottom: 0.5rem; margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(37,99,235,0.3);
+    }
+    .eq-card {
+      margin-bottom: 1rem;
+      padding: 1.5rem;
+      background: rgba(10,15,30,0.8);
+      border: 1px solid rgba(37,99,235,0.2);
+      border-radius: 14px;
+      transition: all 0.2s;
+    }
+    .eq-card:hover { border-color: rgba(37,99,235,0.5); background: rgba(37,99,235,0.06); }
+    .eq-card-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); margin-bottom: 0.3rem; }
+    .eq-card-name { font-size: 0.95rem; font-weight: 700; color: var(--blue-glow); margin-bottom: 0.8rem; }
+    .eq-card-formula {
+      font-family: var(--font-mono);
+      font-size: 1.1rem; color: white;
+      padding: 0.8rem 1rem;
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      border-left: 3px solid var(--blue);
+      margin: 0.5rem 0 0.8rem;
+    }
+    .eq-card-formula.large { font-size: 0.9rem; }
+    .eq-card-desc { font-size: 0.85rem; color: var(--grey-light); line-height: 1.7; }
+    .eq-card-vars { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
+    .eq-var {
+      padding: 0.2rem 0.7rem;
+      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(37,99,235,0.2);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem; color: var(--teal-light);
+    }
+    .eq-regime { border-left-color: var(--red); }
+    .eq-regime .eq-card-formula { border-left-color: var(--red); }
+    .eq-physics { border-left-color: var(--teal); }
+    .eq-physics .eq-card-formula { border-left-color: var(--teal); }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="nav-logo"><span class="logo-icon">⟳</span><span class="logo-text">SEM</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="machine3d.html">3D Machine</a></li>
+      <li><a href="simulation.html">Live Simulation</a></li>
+      <li><a href="theory.html">Theory</a></li>
+      <li><a href="paper.html">Paper</a></li>
+      <li><a href="equations.html" class="active">Equations</a></li>
+      <li><a href="about.html">Authors</a></li>
+    </ul>
+  </nav>
+
+  <div class="eq-page">
+    <div class="section-tag">Complete Reference</div>
+    <h1>All Equations</h1>
+    <p>Every equation from the paper, with variable definitions and physical interpretations. Use the sidebar legend to understand each symbol.</p>
+
+    <!-- Core Definitions -->
+    <div class="eq-section">
+      <div class="eq-section-title">Core Definitions</div>
+
+      <div class="eq-card">
+        <div class="eq-card-num">Def 1.1</div>
+        <div class="eq-card-name">Adaptive Efficiency</div>
+        <div class="eq-card-formula">AE(t) = dC(t) / dt</div>
+        <div class="eq-card-desc">The instantaneous rate of change of the Capability Function. Positive AE = the system is growing. Zero AE = stasis. Negative AE = regression. Unlike thermodynamic efficiency (bounded by Carnot), AE is not bounded above for open systems.</div>
+        <div class="eq-card-vars"><span class="eq-var">AE(t)</span><span class="eq-var">C(t) = capability</span><span class="eq-var">t = time/cycle</span></div>
+      </div>
+
+      <div class="eq-card">
+        <div class="eq-card-num">Def 2.1</div>
+        <div class="eq-card-name">Capability Function</div>
+        <div class="eq-card-formula">C(t) = α · C_cog(t) + β · C_phys(t)</div>
+        <div class="eq-card-desc">Weighted composite of cognitive and physical capability, measured on a dynamic benchmark suite B(t) that advances with the agent. α = 0.70 (cognitive primacy), β = 0.30. The dynamic benchmark prevents benchmark saturation (Ablation Table).</div>
+        <div class="eq-card-vars"><span class="eq-var">α = 0.70</span><span class="eq-var">β = 0.30</span><span class="eq-var">α + β = 1</span><span class="eq-var">C_cog = cognitive score</span><span class="eq-var">C_phys = physical score</span></div>
+      </div>
+
+      <div class="eq-card">
+        <div class="eq-card-num">Def 3.1</div>
+        <div class="eq-card-name">Effective Improvement Rate</div>
+        <div class="eq-card-formula">λ_eff = α · λ_cog + β · λ_phys</div>
+        <div class="eq-card-desc">The weighted average improvement rate across cognitive and physical dimensions. In the paper baseline: λ_cog = 0.050, λ_phys = 0.030, giving λ_eff = 0.044. The gradient of the AE phase portrait is steeper in λ_cog by factor α/β = 7/3.</div>
+        <div class="eq-card-vars"><span class="eq-var">λ_cog = 0.050</span><span class="eq-var">λ_phys = 0.030</span><span class="eq-var">λ_eff = 0.044</span></div>
+      </div>
+    </div>
+
+    <!-- Stochastic Model -->
+    <div class="eq-section">
+      <div class="eq-section-title">Stochastic Model</div>
+      <div class="eq-card">
+        <div class="eq-card-num">Eq 4.1</div>
+        <div class="eq-card-name">Stochastic Capability Update</div>
+        <div class="eq-card-formula large">C(t+1) = C(t) + F(t)·[λ_eff·C(t)·(1−C(t)/C_max) − δ_K(t)] + σ·C(t)·ξ(t)</div>
+        <div class="eq-card-desc">The core stochastic differential equation governing SEM dynamics. Four physical effects: logistic bounded growth (Verhulst term), Kolmogorov incompressibility correction, Bernoulli failure events, and multiplicative Gaussian noise. Analogous to the Langevin equation in statistical physics.</div>
+        <div class="eq-card-vars">
+          <span class="eq-var">ξ(t) ~ N(0,1)</span>
+          <span class="eq-var">F(t) ~ Bernoulli(1−p_fail)</span>
+          <span class="eq-var">σ = 0.08</span>
+          <span class="eq-var">p_fail = 0.07</span>
+          <span class="eq-var">C_max = 1000 (baseline)</span>
+          <span class="eq-var">δ_K(t) = incompressibility correction</span>
+        </div>
+      </div>
+
+      <div class="eq-card">
+        <div class="eq-card-num">Eq 4.2</div>
+        <div class="eq-card-name">Expected AE</div>
+        <div class="eq-card-formula">E[AE(t)] = (1−p_fail)·[λ_eff·C(t)·(1−C/C_max) − δ_K(t)] − p_fail·μ_fail·C(t)</div>
+        <div class="eq-card-desc">Derived by taking the conditional expectation over F(t) and ξ(t). This is the master equation from which the theorem's conditions follow directly. Setting this expression > 0 gives the necessary condition.</div>
+        <div class="eq-card-vars"><span class="eq-var">μ_fail = expected fractional capability loss per failure</span></div>
+      </div>
+    </div>
+
+    <!-- Theorem -->
+    <div class="eq-section">
+      <div class="eq-section-title">Adaptive Efficiency Growth Theorem</div>
+      <div class="eq-card">
+        <div class="eq-card-num">Theorem N</div>
+        <div class="eq-card-name">Necessary Condition for E[AE(t)] &gt; 0</div>
+        <div class="eq-card-formula">λ_eff · C(t) · (1 − C(t)/C_max) &gt; δ_K(t) + p_fail · μ_fail · C(t)</div>
+        <div class="eq-card-desc">Growth rate × available headroom must exceed incompressibility cost + expected failure loss. This is a point-in-time condition: as C(t) increases toward C_max, the left-hand side shrinks while δ_K(t) grows — eventually violating the condition (FR-2/FR-3).</div>
+      </div>
+      <div class="eq-card">
+        <div class="eq-card-num">Theorem S</div>
+        <div class="eq-card-name">Sufficient Condition for Sustained Positive AE</div>
+        <div class="eq-card-formula">λ_eff &gt; (σ² / 2) + p_fail · μ_fail + δ_K_max / C_0</div>
+        <div class="eq-card-desc">The noise drift term σ²/2 arises from Itô's lemma applied to the multiplicative noise σ·C(t)·ξ(t). This is the condition that, if satisfied at t=0 with adequate headroom, guarantees sustained positive AE over [0,T]. Baseline: 0.044 > 0.0032 + 0.0042 + 0.001 ✓</div>
+        <div class="eq-card-vars"><span class="eq-var">δ_K_max = max δ_K(t) over [0,T]</span><span class="eq-var">C_0 = C(0) = 8.5</span></div>
+      </div>
+    </div>
+
+    <!-- Failure Regimes -->
+    <div class="eq-section">
+      <div class="eq-section-title">Failure Regimes</div>
+      <div class="eq-card eq-regime">
+        <div class="eq-card-num">FR-1</div>
+        <div class="eq-card-name">Noise Dominance</div>
+        <div class="eq-card-formula">σ²/2 &gt; λ_eff − p_fail·μ_fail</div>
+        <div class="eq-card-desc">When stochastic fluctuations in the modification-evaluation cycle overwhelm the systematic improvement signal. Physical analog: order-disorder phase transition in spin glasses. The critical noise threshold is σ²/2 = λ_eff − p_fail·μ_fail.</div>
+      </div>
+      <div class="eq-card eq-regime">
+        <div class="eq-card-num">FR-2</div>
+        <div class="eq-card-name">Resource Saturation</div>
+        <div class="eq-card-formula">C(t) → C_max  ⟹  AE(t) → −δ_K(t) &lt; 0</div>
+        <div class="eq-card-desc">As C(t) approaches C_max, the logistic growth term approaches zero while δ_K(t) continues to grow — eventually driving AE negative. Physical analog: carrying capacity limit (logistic equation / Verhulst, 1838).</div>
+      </div>
+      <div class="eq-card eq-regime">
+        <div class="eq-card-num">FR-3</div>
+        <div class="eq-card-name">Algorithmic Incompressibility</div>
+        <div class="eq-card-formula">δ_K(t) ≥ λ_eff · C(t) · (1 − C(t)/C_max)</div>
+        <div class="eq-card-desc">The deepest failure mode. When K(A_t) — the Kolmogorov complexity of the agent description — grows faster than the modification strategy can discover improvements. Escaping requires second-order self-improvement (improving the modification strategy itself).</div>
+      </div>
+    </div>
+
+    <!-- Physical grounding -->
+    <div class="eq-section">
+      <div class="eq-section-title">Physical Foundation Equations</div>
+      <div class="eq-card eq-physics">
+        <div class="eq-card-num">Physics 1</div>
+        <div class="eq-card-name">Carnot Efficiency Limit</div>
+        <div class="eq-card-formula">η_Carnot = 1 − (T_cold / T_hot)</div>
+        <div class="eq-card-desc">The thermodynamic efficiency ceiling for any heat engine. AE is in a categorically different domain — rate of capability change for open systems — and is not bounded by any analogous Carnot-like ceiling.</div>
+      </div>
+      <div class="eq-card eq-physics">
+        <div class="eq-card-num">Physics 2</div>
+        <div class="eq-card-name">Landauer's Principle</div>
+        <div class="eq-card-formula">E_erase ≥ k_B · T · ln(2) ≈ 2.87 × 10⁻²¹ J  (at T = 300K)</div>
+        <div class="eq-card-desc">Minimum energy to erase one bit of information. Sets a physical floor on the cost of every self-modification cycle. Motivates the DGM archive strategy: retaining rather than erasing failed modifications avoids this cost.</div>
+        <div class="eq-card-vars"><span class="eq-var">k_B = 1.38×10⁻²³ J/K</span><span class="eq-var">T = temperature (Kelvin)</span></div>
+      </div>
+      <div class="eq-card eq-physics">
+        <div class="eq-card-num">Physics 3</div>
+        <div class="eq-card-name">Kolmogorov Complexity Bound</div>
+        <div class="eq-card-formula">K(s) = length of shortest program producing s</div>
+        <div class="eq-card-desc">No program produces string s with fewer bits than K(s). Applied to the agent's cognitive state A_t: K(A_t) increases monotonically as capability grows. This is the information-theoretic underpinning of FR-3.</div>
+      </div>
+      <div class="eq-card eq-physics">
+        <div class="eq-card-num">Physics 4</div>
+        <div class="eq-card-name">Entropy Production (Prigogine)</div>
+        <div class="eq-card-formula">dS_universe/dt = dS_system/dt + dS_environment/dt ≥ 0</div>
+        <div class="eq-card-desc">Total entropy production is always non-negative (Second Law). The SEM as a dissipative structure: it increases internal organization (dS_system &lt; 0 locally) by exporting entropy to the environment at a greater rate.</div>
+      </div>
+    </div>
+
+    <!-- AE Phase Boundary -->
+    <div class="eq-section">
+      <div class="eq-section-title">AE Phase Portrait</div>
+      <div class="eq-card">
+        <div class="eq-card-num">Eq 8.1</div>
+        <div class="eq-card-name">AE = 0 Boundary in (λ_cog, λ_phys) Space</div>
+        <div class="eq-card-formula">α·λ_cog + (1−α)·λ_phys = (σ²/2) + p_fail·μ_fail + δ_K/C</div>
+        <div class="eq-card-desc">The critical curve separating the sustained growth region from the failure region in parameter space. The gradient of this boundary is steeper in the λ_cog direction by factor α/β = 7/3 — motivating prioritization of cognitive optimization in resource-constrained implementations.</div>
+        <div class="eq-card-vars"><span class="eq-var">Gradient: ∂(boundary)/∂λ_cog = α/β = 7/3</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/animations.js"></script>
+</body>
+</html>
